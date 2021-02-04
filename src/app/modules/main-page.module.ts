@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { MainPageComponent } from './main-page.component';
+
 import { LayoutModule } from '../shared/layout/layout.module';
 import { MainPageRoutingModule } from './main-page-routing.module';
 
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MainPageComponent } from './main-page.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    MainPageComponent
+    MainPageComponent,
+    AccountSettingsComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +22,8 @@ import { MainPageRoutingModule } from './main-page-routing.module';
   ],
   exports: [
     DashboardComponent,
-    MainPageComponent
+    MainPageComponent,
+    AccountSettingsComponent
   ]
 })
 export class MainPageModule { }
