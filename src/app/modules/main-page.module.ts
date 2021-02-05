@@ -7,13 +7,17 @@ import { MainPageRoutingModule } from './main-page-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MainPageComponent } from './main-page.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromisesComponent } from './promises/promises.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     MainPageComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    PromisesComponent,
+    RxjsComponent
   ],
   imports: [
     CommonModule,
