@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Profile</h4>
+        <h6 class="card-subtitle">Fields</h6>
+        <form class="form p-t-20" [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+          <div class="form-group">
+            <label for="exampleInputuname">User Name</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+              <input type="text" class="form-control"
+                     formControlName="name"
+                     id="exampleInputuname" placeholder="Username">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-email"></i></div>
+              <input type="email" class="form-control"
+                     [readOnly]="profile.google"
+                     formControlName="email"
+                     id="exampleInputEmail1" placeholder="Enter email">
+            </div>
+          </div>
+          <button type="submit"
+                  [disabled]="profileForm.invalid"
+                  class="btn btn-success btn-block waves-effect waves-light m-r-10">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Avatar</h4>
+        <h6 class="card-subtitle">User Image</h6>
+
+        <div class="text-center">
+          <img *ngIf="!imageTemp" [src]="profile.profileImage" class="img-avatar" alt="Profile">
+          <img *ngIf="imageTemp" [src]="imageTemp" class="img-avatar" alt="Profile">
+        </div>
+
+        <input type="file" (change)="changeImage($event.target.files[0])">
+        <br><br>
+
+        <button type="button" [disabled]="!imageToUpload" class="btn btn-success btn-block waves-effect waves-light m-r-10" (click)="uploadImage()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

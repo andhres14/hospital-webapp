@@ -1,3 +1,5 @@
+import { environment } from '../../../environments/environment';
+
 export class User {
   constructor(
     public name: string,
@@ -8,5 +10,13 @@ export class User {
     public role?: string,
     public uid?: string,
   ) {
+  }
+
+  get profileImage(): string {
+    if (this.img) {
+      return !this.google ? `${ environment.base_url }/uploads/users/${ this.img }` : this.img;
+    } else {
+      return `${ environment.base_url }/uploads/no-img.jpg`;
+    }
   }
 }

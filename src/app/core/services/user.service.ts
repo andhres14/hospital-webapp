@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 import { RegisterFormInterface } from '../../shared/interfaces/register-form.interface';
 import { LoginFormInterface } from '../../shared/interfaces/login-form.interface';
+import { User } from '../../shared/models/user.model';
 
 const { base_url } = environment;
 declare const gapi: any;
@@ -18,11 +19,24 @@ declare const gapi: any;
 export class UserService {
 
   public auth2: any;
+  public user: User;
 
   constructor(private http: HttpClient,
               private ngZone: NgZone,
               private router: Router) {
     this.googleInit();
+  }
+
+  get userToken(): string {
+    return localStorage.getItem('userToken') || '';
+  }
+
+  get uid(): string {
+    return this.user.uid || '';
+  }
+
+  get role(): string {
+    return this.user.role || '';
   }
 
   googleInit(): Promise<any> {
@@ -39,16 +53,17 @@ export class UserService {
   }
 
   checkToken(): Observable<boolean> {
-    const token = localStorage.getItem('userToken') || '';
     return this.http.get(`${ base_url }/login/refresh`, {
       headers: {
-        Authorization: token
+        Authorization: this.userToken
       }
     }).pipe(
-      tap((resp: any) => {
+      map((resp: any) => {
+        const { name, email, google, role, img = '', uid } = resp.user;
+        this.user = new User(name, email, '', img, google, role, uid);
         localStorage.setItem('userToken', resp.token);
+        return true;
       }),
-      map(resp => true),
       catchError(err => of(false))
     );
   }
@@ -78,6 +93,18 @@ export class UserService {
           localStorage.setItem('userToken', resp.token);
         })
       );
+  }
+
+  updateProfile(data: { email: string, name: string, role: string }) {
+    data = {
+      ...data,
+      role: this.role
+    };
+    return this.http.put(`${ base_url }/users/${ this.uid }`, data, {
+      headers: {
+        Authorization: this.userToken
+      }
+    });
   }
 
   logout(): void {
