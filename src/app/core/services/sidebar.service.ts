@@ -11,7 +11,16 @@ export class SidebarService {
       childs: [
         { title: 'Main', url: '/' },
         { title: 'Promises', url: 'promises' },
-        { title: 'RxJS', url: 'rxjs' }
+        { title: 'RxJS', url: 'rxjs' },
+      ]
+    },
+    {
+      title: 'Maintenance',
+      icon: 'mdi mdi-folder-lock-open',
+      childs: [
+        { title: 'Users', url: 'users' },
+        { title: 'Hospitals', url: 'hospitals' },
+        { title: 'Medics', url: 'medics' }
       ]
     }
   ];

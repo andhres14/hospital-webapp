@@ -1,0 +1,28 @@
+<div class="modal-image-background animated fadeIn fast" [class.hidden-modal]="modalImageService.hideModal">
+  <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+       style="display: block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="exampleModalLabel1">Load Image</h4>
+          <button (click)="closeModal()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h3>Select a Image</h3>
+          <div class="text-center">
+            <img *ngIf="!imageTemp" [src]="modalImageService.img" class="img-avatar" alt="Profile">
+            <img *ngIf="imageTemp" [src]="imageTemp" class="img-avatar" alt="Profile">
+          </div>
+
+          <input type="file" (change)="changeImage($event.target.files[0])">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeModal()">Close</button>
+          <button type="button" class="btn btn-primary" (click)="uploadImage()">Update Photo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

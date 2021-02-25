@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LayoutModule } from '../shared/layout/layout.module';
 import { MainPageRoutingModule } from './main-page-routing.module';
@@ -11,6 +11,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsersComponent } from './maintenance/users/users.component';
+import { ModalImageComponent } from './@private/modal-image/modal-image.component';
 
 
 @NgModule({
@@ -20,18 +22,23 @@ import { ProfileComponent } from './profile/profile.component';
     AccountSettingsComponent,
     PromisesComponent,
     RxjsComponent,
-    ProfileComponent
+    ProfileComponent,
+    UsersComponent,
+    ModalImageComponent
   ],
   imports: [
     CommonModule,
     LayoutModule,
     MainPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     DashboardComponent,
     MainPageComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    ModalImageComponent
   ]
 })
-export class MainPageModule { }
+export class MainPageModule {
+}

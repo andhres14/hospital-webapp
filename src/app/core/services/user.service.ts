@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { RegisterFormInterface } from '../../shared/interfaces/register-form.interface';
 import { LoginFormInterface } from '../../shared/interfaces/login-form.interface';
 import { User } from '../../shared/models/user.model';
+import { LoadUsersInterface } from '../../shared/interfaces/load-users.interface';
 
 const { base_url } = environment;
 declare const gapi: any;
@@ -39,6 +40,14 @@ export class UserService {
     return this.user.role || '';
   }
 
+  get headers(): object {
+    return {
+      headers: {
+        Authorization: this.userToken
+      }
+    };
+  }
+
   googleInit(): Promise<any> {
     return new Promise(resolve => {
       gapi.load('auth2', () => {
@@ -53,11 +62,7 @@ export class UserService {
   }
 
   checkToken(): Observable<boolean> {
-    return this.http.get(`${ base_url }/login/refresh`, {
-      headers: {
-        Authorization: this.userToken
-      }
-    }).pipe(
+    return this.http.get(`${ base_url }/login/refresh`, this.headers).pipe(
       map((resp: any) => {
         const { name, email, google, role, img = '', uid } = resp.user;
         this.user = new User(name, email, '', img, google, role, uid);
@@ -100,11 +105,7 @@ export class UserService {
       ...data,
       role: this.role
     };
-    return this.http.put(`${ base_url }/users/${ this.uid }`, data, {
-      headers: {
-        Authorization: this.userToken
-      }
-    });
+    return this.http.put(`${ base_url }/users/${ this.uid }`, data, this.headers);
   }
 
   logout(): void {
@@ -115,6 +116,32 @@ export class UserService {
       });
       console.log('User signed out.');
     });
+  }
+
+  getUsers(from: number = 0, to: number = 15) {
+    const url = `${ base_url }/users?from=${ from }&to=${ to }`;
+    return this.http.get<LoadUsersInterface>(url, this.headers)
+      .pipe(
+        map((resp) => {
+          const users = resp.users.map(
+            user => new User(user.name, user.email, '', user.img, user.google, user.role, user.uid)
+          );
+          return {
+            totalUsers: resp.totalUsers,
+            users
+          };
+        })
+      );
+  }
+
+  deleteUser(user: User) {
+    console.log(user);
+    const url = `${ base_url }/users/${ user.uid }`;
+    return this.http.delete(url, this.headers);
+  }
+
+  updateUser(user: User) {
+    return this.http.put(`${ base_url }/users/${ user.uid }`, user, this.headers);
   }
 
 }

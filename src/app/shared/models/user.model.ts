@@ -16,7 +16,7 @@ export class User {
     if (this.img) {
       return !this.google ? `${ environment.base_url }/uploads/users/${ this.img }` : this.img;
     } else {
-      return `${ environment.base_url }/uploads/no-img.jpg`;
+      return `${ environment.base_url }/uploads/users/no-img.jpg`;
     }
   }
 }
