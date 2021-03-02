@@ -10,6 +10,10 @@ import { PromisesComponent } from './promises/promises.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './maintenance/users/users.component';
+import { HospitalsComponent } from './maintenance/hospitals/hospitals.component';
+import { MedicsComponent } from './maintenance/medics/medics.component';
+import { MedicEditComponent } from './maintenance/medics/medic-edit.component';
+import { MedicCreateComponent } from './maintenance/medics/medic-create.component';
 
 const routes: Routes = [
   {
@@ -25,6 +29,10 @@ const routes: Routes = [
 
       // Maintenance
       { path: 'users', component: UsersComponent, data: { title: 'Users' } },
+      { path: 'hospitals', component: HospitalsComponent, data: { title: 'Hospitals' } },
+      { path: 'medics', component: MedicsComponent, data: { title: 'Medics' } },
+      { path: 'medics/create', component: MedicCreateComponent, data: { title: 'Create Medic' } },
+      { path: 'medics/:id', component: MedicCreateComponent, data: { title: 'Edit Medic' } },
     ]
   }
 ];

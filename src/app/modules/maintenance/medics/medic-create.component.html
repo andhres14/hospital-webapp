@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Medic</h4>
+        <h6 class="card-subtitle">Medic Maintenance</h6>
+        <form class="form p-t-20"
+              [formGroup]="medicForm"
+              (ngSubmit)="saveMedic()">
+
+          <div class="form-group text-center"
+               *ngIf="selectedMedic">
+            <img [src]="selectedMedic.img | image: 'medics'"
+                 class="w200"
+                 alt="Avatar">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputuname">Name</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+              <input type="text"
+                     class="form-control"
+                     formControlName="name"
+                     id="exampleInputuname" placeholder="Username">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Hospital</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-email"></i></div>
+              <select class="form-control" formControlName="hospital">
+                <option value="">Choose a Hospital</option>
+                <option [value]="hospital._id" *ngFor="let hospital of hospitals">{{ hospital.name }}</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
+          <a [routerLink]="'/dashboard/medics'" class="btn btn-inverse waves-effect waves-light">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col fadeIn fast" *ngIf="selectedHospital">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Hospital</h4>
+        <h6 class="card-subtitle">{{ selectedHospital.name }}</h6>
+        <div class="text-center">
+          <img [src]="selectedHospital.img | image: 'hospitals'"
+               class="img-thumbnail"
+               alt="Hospital">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

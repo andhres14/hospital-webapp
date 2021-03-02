@@ -13,8 +13,12 @@ export class User {
   }
 
   get profileImage(): string {
-    if (this.img) {
-      return !this.google ? `${ environment.base_url }/uploads/users/${ this.img }` : this.img;
+    if (!this.img) {
+      return `${ environment.base_url }/uploads/users/no-img.jpg`;
+    } else if (this.img.includes('https')) {
+      return this.img;
+    } else if (this.img) {
+      return `${ environment.base_url }/uploads/users/${ this.img }`;
     } else {
       return `${ environment.base_url }/uploads/users/no-img.jpg`;
     }

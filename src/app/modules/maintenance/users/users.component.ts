@@ -75,9 +75,10 @@ export class UsersComponent implements OnInit, OnDestroy {
   search(term: string): void {
     if (term.length === 0) {
       this.users = this.usersTemp;
+      return;
     }
     this.searchService.generalSearch('users', term)
-      .subscribe(resp => {
+      .subscribe((resp: User[]) => {
         this.users = resp;
       });
   }
